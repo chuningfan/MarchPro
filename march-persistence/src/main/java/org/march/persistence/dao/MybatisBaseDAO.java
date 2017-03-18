@@ -5,12 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.march.persistence.basic.IMybatisDAO;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 public class MybatisBaseDAO<T> extends SqlSessionDaoSupport implements IMybatisDAO<T> {
 
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
+	
 	public void addObject(String statementName, Object obj) throws DataAccessException {
 		 getSqlSession().insert(statementName, obj); 
 	}
@@ -65,6 +70,6 @@ public class MybatisBaseDAO<T> extends SqlSessionDaoSupport implements IMybatisD
 	public List list(String statementName, Map map) {
 		return getSqlSession().selectList(statementName, map);  
 	}
-
+	
 
 }
