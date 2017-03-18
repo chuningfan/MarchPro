@@ -40,8 +40,7 @@ public class MybatisBaseDAO<T> extends SqlSessionDaoSupport implements IMybatisD
 		 return getSqlSession().update(statementName, obj);
 	}
 
-	@SuppressWarnings("rawtypes")
-	public int updateObjectState(String statementName, Map map) throws DataAccessException {
+	public int updateObjectState(String statementName, Map<String, Object> map) throws DataAccessException {
 		 return getSqlSession().update(statementName, map);  
 	}
 
@@ -50,32 +49,28 @@ public class MybatisBaseDAO<T> extends SqlSessionDaoSupport implements IMybatisD
 	     return obj.intValue();  
 	}
 
-	@SuppressWarnings("rawtypes")
-	public int getObjectCount(String statementName, Map map) {
+	public int getObjectCount(String statementName, Map<String, Object> map) {
 		 Long obj = getSqlSession().selectOne(statementName, map);  
 	     return obj.intValue();  
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Object findObject(String statementName, Map map) {
+	public Object findObject(String statementName, Map<String, Object> map) {
 		 return getSqlSession().selectOne(statementName, map);  
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List<Object> listByPage(String statementName, Map map, int index, int pageSize) {
+	public <R> List<R> listByPage(String statementName, Map<String, Object> map, int index, int pageSize) {
 		return getSqlSession().selectList(statementName, map, new RowBounds(index, pageSize));
 	}
 
-	public List<Object> listByPage(String statementName, String filter, int skipResults, int pageSize) {
+	public <R> List<R> listByPage(String statementName, String filter, int skipResults, int pageSize) {
 		 return getSqlSession().selectList(statementName, filter, new RowBounds(skipResults, pageSize));  
 	}
 
-	public List<Object> list(String statementName, String filter) {
+	public <R> List<R> list(String statementName, String filter) {
 		return getSqlSession().selectList(statementName, filter);  
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List<Object> list(String statementName, Map map) {
+	public <R> List<R> list(String statementName, Map<String, Object> map) {
 		return getSqlSession().selectList(statementName, map);  
 	}
 	
