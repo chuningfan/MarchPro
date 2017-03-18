@@ -1,5 +1,9 @@
 package org.march.persistence.entity;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pagination")
 public class Pagination<T> {
 	
 	private int pageSize;
@@ -7,7 +11,8 @@ public class Pagination<T> {
 	private int index = 0;
 	
 	private int currentPage = 1;
-
+	
+	@XmlElement(name="target")
 	private T target;
 	
 	public int getPageSize() {
