@@ -9,14 +9,11 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
             http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context-4.2.xsd"
-	default-autowire="byName">
+            http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 
 	<bean id="DBConfigurerReader" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
-			<list>
-           		<value>classpath:db-config.properties</value>
-           	</list>
+           	<value>classpath:db-config.properties</value>
 		</property>
 	</bean>
 
