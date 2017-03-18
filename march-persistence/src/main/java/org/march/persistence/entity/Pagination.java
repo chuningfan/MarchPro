@@ -1,6 +1,6 @@
 package org.march.persistence.entity;
 
-public class Pagination {
+public class Pagination<T> {
 	
 	private int pageSize;
 	
@@ -8,6 +8,8 @@ public class Pagination {
 	
 	private int currentPage = 1;
 
+	private T target;
+	
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -30,6 +32,14 @@ public class Pagination {
 
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
+	}
+
+	public T getTarget() {
+		return target;
+	}
+
+	public void setTarget(T target) {
+		this.target = target;
 	}
 	
 }
