@@ -8,20 +8,15 @@ import java.util.Map;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.march.persistence.basic.IHibernateDAO;
 import org.march.persistence.entity.Pagination;
 import org.march.persistence.entity.PaginationResult;
 import org.march.persistence.util.GenericsUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHibernateDAO<T> {
 
-	@Autowired
-	private SessionFactory sessionFactory;
-	
 	@SuppressWarnings("unchecked")
 	protected Class<T> entityClass = GenericsUtils.getSuperClassGenricType(this.getClass());  
 	
@@ -157,6 +152,5 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 		});
 	}
 
-	
 
 }

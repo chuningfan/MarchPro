@@ -1,7 +1,4 @@
-F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\dao\HibernateBaseDAO.java
+F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\basic\IBaseDAO.java
 F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\entity\Pagination.java
-F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\util\GenericsUtils.java
-F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\basic\IMybatisDAO.java
-F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\basic\IHibernateDAO.java
+F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\basic\BaseDAO.java
 F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\entity\PaginationResult.java
-F:\Users\Administrator\workspace2\march-persistence\src\main\java\org\march\persistence\dao\MybatisBaseDAO.java
