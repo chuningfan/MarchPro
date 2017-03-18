@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ <mapper namespace="org.march.foundation.dao.DemoDao" >
+ 
+ <resultMap id="returnData" type="org.march.foundation.entity.Demo" >
+	 <result column="c_name" property="name" jdbcType="VARCHAR" />
+	 <result column="c_addr" property="addr" jdbcType="VARCHAR" />
+	 <result column="c_age" property="age" jdbcType="INTEGER" />
+ </resultMap>
+ 
+ <select id="find" resultMap="returnData" parameterType="java.util.Map" >
+	 select * 
+	 	from demo
+	 	where c_name = #{name}
+ </select>
+ 
+ <insert id="save" parameterType="org.march.foundation.entity.Demo">
+ 	insert into demo (
+ 		<if test="name!=null">
+ 			c_name,
+ 		</if>
+ 		<if test="addr!=null">
+ 			c_addr,
+ 		</if>
+ 		<if test="age!=null">
+ 			c_age
+ 		</if>
+ 	) values (
+ 		<if test="name!=null">
+ 			#{name,jdbcType=VARCHAR},
+ 		</if>
+ 		<if test="addr!=null">
+ 			#{addr,jdbcType=VARCHAR},
+ 		</if>
+ 		<if test="age!=null">
+ 			#{age,jdbcType=INTEGER}
+ 		</if>
+ 		)
+ </insert>
+ 
+ </mapper>
