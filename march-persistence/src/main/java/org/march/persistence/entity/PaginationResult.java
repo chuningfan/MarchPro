@@ -1,20 +1,15 @@
 package org.march.persistence.entity;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class PaginationResult<T> {
+public class PaginationResult<T> implements Serializable {
 	
-	private int pageCount;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 52343584777845874L;
 	private Collection<T> resultSet;
-
-	public int getPageCount() {
-		return pageCount;
-	}
-
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
-	}
 
 	public Collection<T> getResultSet() {
 		return resultSet;

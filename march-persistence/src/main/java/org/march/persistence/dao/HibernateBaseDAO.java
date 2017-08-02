@@ -8,22 +8,19 @@ import java.util.Map;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.march.persistence.basic.IHibernateDAO;
+import org.march.persistence.constant.QueryType;
+import org.march.persistence.dto.PaginationParameterDto;
 import org.march.persistence.entity.Pagination;
 import org.march.persistence.entity.PaginationResult;
-import org.march.persistence.util.GenericsUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.march.persistence.util.GenericUtils;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHibernateDAO<T> {
 
-	@Autowired
-	private SessionFactory sessionFactory;
-	
 	@SuppressWarnings("unchecked")
-	protected Class<T> entityClass = GenericsUtils.getSuperClassGenricType(this.getClass());  
+	protected Class<T> entityClass = (Class<T>) GenericUtils.getSuperClassGenricType(this.getClass());  
 	
 	public List<T> findTbyHql(String hql) {
 		@SuppressWarnings("unchecked")
@@ -75,7 +72,7 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 		return getHibernateTemplate().execute(new HibernateCallback<PaginationResult<T>>(){
 			public PaginationResult<T> doInHibernate(Session session) throws HibernateException {
 				Query query = session.createQuery(hql);
-				GenericsUtils.setQuery(criteria, query);
+				GenericUtils.setQuery(criteria, query);
 				if(pagination != null){
 					int pageSize = pagination.getPageSize();
 					int pageIndex = pagination.getIndex();
@@ -90,6 +87,7 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 				Collection<T> coll = query.list();
 	            PaginationResult<T> pr = new PaginationResult<T>();
 				pr.setResultSet(coll);
+				
 				return pr;
 			}
 		});
@@ -99,7 +97,7 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 		return getHibernateTemplate().execute(new HibernateCallback<PaginationResult<T>>(){
 			public PaginationResult<T> doInHibernate(Session session) throws HibernateException {
 				Query query = session.createSQLQuery(sql).addEntity(entityClass);
-				GenericsUtils.setQuery(criteria, query);
+				GenericUtils.setQuery(criteria, query);
 				if(pagination != null){
 					int pageSize = pagination.getPageSize();
 					int pageIndex = pagination.getIndex();
@@ -131,7 +129,7 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 		return getHibernateTemplate().execute(new HibernateCallback<Long>(){
 			public Long doInHibernate(Session session) throws HibernateException {
 				Query query = session.createSQLQuery(sql);
-				GenericsUtils.setQuery(criteria, query);
+				GenericUtils.setQuery(criteria, query);
 				Object obj = query.uniqueResult();
 				if(obj == null){
 					obj = 0;
@@ -146,7 +144,7 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 		return getHibernateTemplate().execute(new HibernateCallback<Long>(){
 			public Long doInHibernate(Session session) throws HibernateException {
 				Query query = session.createQuery(hql);
-				GenericsUtils.setQuery(criteria, query);
+				GenericUtils.setQuery(criteria, query);
 				Object obj = query.uniqueResult();
 				if(obj == null){
 					obj = 0;
@@ -157,6 +155,25 @@ public class HibernateBaseDAO<T> extends HibernateDaoSupport implements IHiberna
 		});
 	}
 
-	
-
+	public Collection<T> getPaginationList(PaginationParameterDto paginationParameterDto) {
+		boolean invalidPagination = paginationParameterDto.getPagination() == null || paginationParameterDto.getPagination().getIndex() < 1 || paginationParameterDto.getPagination().getPageSize() < 1;
+		boolean invalidHQL = paginationParameterDto.getQueryString() == null;
+		if (invalidPagination || invalidHQL) {
+			return null;
+		}
+		if (paginationParameterDto.getQueryType() == QueryType.SQL) {
+			return this.getSQLPaginationList(
+					paginationParameterDto.getPagination(), 
+					paginationParameterDto.getQueryString(), 
+					paginationParameterDto.getCriteria()
+					).getResultSet();
+		} else {
+			return this.getHQLPaginationList(
+					paginationParameterDto.getPagination(), 
+					paginationParameterDto.getQueryString(), 
+					paginationParameterDto.getCriteria()
+					).getResultSet();
+		}
+	}
+		
 }

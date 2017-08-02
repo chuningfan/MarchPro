@@ -1,9 +1,11 @@
 package org.march.persistence.basic;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.march.persistence.dto.PaginationParameterDto;
 import org.march.persistence.entity.Pagination;
 import org.march.persistence.entity.PaginationResult;
 
@@ -35,5 +37,8 @@ public interface IHibernateDAO<T> {
 	
 	Long getCountBYHQL(String hql, Map<String, Object> criteria);
 	
-	public void delete(T entity);
+	void delete(T entity);
+	
+	Collection<T> getPaginationList(PaginationParameterDto paginationParameterDto);
+	
 }

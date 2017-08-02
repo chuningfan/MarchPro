@@ -55,5 +55,5 @@
 			<value>${testConnectionOnCheckout}</value>
 		</property>
 	</bean>
-
+	
 </beans>

@@ -8,14 +8,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.march.persistence.basic.IMybatisDAO;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 public class MybatisBaseDAO<T> extends SqlSessionDaoSupport implements IMybatisDAO<T> {
-
 	
-	@SuppressWarnings("unused")
-	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 	
 	public void addObject(String statementName, Object obj) throws DataAccessException {
@@ -73,6 +69,13 @@ public class MybatisBaseDAO<T> extends SqlSessionDaoSupport implements IMybatisD
 	public <R> List<R> list(String statementName, Map<String, Object> map) {
 		return getSqlSession().selectList(statementName, map);  
 	}
-	
 
+	public SqlSessionFactory getSqlSessionFactory() {
+		return sqlSessionFactory;
+	}
+
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+	
 }

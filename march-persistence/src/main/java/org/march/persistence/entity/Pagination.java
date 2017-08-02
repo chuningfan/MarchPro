@@ -1,19 +1,20 @@
 package org.march.persistence.entity;
 
-import javax.xml.bind.annotation.XmlElement;
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="pagination")
-public class Pagination<T> {
+public class Pagination implements Serializable {
 	
-	private int pageSize;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3756527838181933146L;
+
+	private int pageSize = 10;
 	
-	private int index = 0;
-	
-	private int currentPage = 1;
-	
-	@XmlElement(name="target")
-	private T target;
+	private int index = 1;
 	
 	public int getPageSize() {
 		return pageSize;
@@ -29,22 +30,6 @@ public class Pagination<T> {
 
 	public void setIndex(int index) {
 		this.index = index;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public T getTarget() {
-		return target;
-	}
-
-	public void setTarget(T target) {
-		this.target = target;
 	}
 	
 }
